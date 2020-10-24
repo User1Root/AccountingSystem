@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccountingSystemLibrary
+namespace AccountingSystemUI.Models
 {
-    public interface IAccountingSystemAPI
+    public class Driver
     {
-        bool Authorization(int id, string password);
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingSystemLibrary", "AccountingSystemLibrary\AccountingSystemLibrary.csproj", "{EC6F581C-0D66-4BD4-A2E4-714DBF9661E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingSystemUI", "AccountingSystemUI\AccountingSystemUI.csproj", "{9DC92874-B39D-4C97-BB91-49FC1D5AC362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC6F581C-0D66-4BD4-A2E4-714DBF9661E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC6F581C-0D66-4BD4-A2E4-714DBF9661E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC6F581C-0D66-4BD4-A2E4-714DBF9661E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC6F581C-0D66-4BD4-A2E4-714DBF9661E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC92874-B39D-4C97-BB91-49FC1D5AC362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC92874-B39D-4C97-BB91-49FC1D5AC362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC92874-B39D-4C97-BB91-49FC1D5AC362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC92874-B39D-4C97-BB91-49FC1D5AC362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3F047DDB-E1A0-4909-9F79-1235C03DBE83}
+		SolutionGuid = {313999B3-116A-4C8B-9209-3C9F04A8BAA2}
 	EndGlobalSection
 EndGlobal

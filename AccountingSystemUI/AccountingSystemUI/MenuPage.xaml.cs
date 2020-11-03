@@ -32,9 +32,9 @@ namespace AccountingSystemUI
             switch(button.Tag)
             {
                 case "0": MenuFrame.Source = new Uri("ESMSearchPage.xaml", UriKind.Relative); break;
-                //case "1": NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative); break;
-                //case "2": NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative); break;
-                //case "3": NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative); break;
+                case "1": MenuFrame.Source = new Uri("ESMInDepotPage.xaml", UriKind.Relative); break;
+                case "2": MenuFrame.Source = new Uri("AddESMPage.xaml", UriKind.Relative); break;
+                case "3": MenuFrame.Source = new Uri("ESMGiveOutPage.xaml", UriKind.Relative); break;
                 default:  NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative); break;
             }
         }

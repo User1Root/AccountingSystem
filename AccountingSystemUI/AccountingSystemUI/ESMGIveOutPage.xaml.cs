@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AccountingSystemUI
 {
     /// <summary>
-    /// Логика взаимодействия для ESMSearchPage.xaml
+    /// Логика взаимодействия для ESMGIveOutPage.xaml
     /// </summary>
-    public partial class ESMSearchPage : Page
+    public partial class ESMGIveOutPage : Page
     {
-        public ESMSearchPage()
+        public ESMGIveOutPage()
         {
             InitializeComponent();
         }

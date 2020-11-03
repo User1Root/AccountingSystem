@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace AccountingSystemUI
 {
     /// <summary>
-    /// Логика взаимодействия для ESMSearchPage.xaml
+    /// Логика взаимодействия для ESMInDepotPage.xaml
     /// </summary>
-    public partial class ESMSearchPage : Page
+    public partial class ESMInDepotPage : Page
     {
-        public ESMSearchPage()
+        public ESMInDepotPage()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ESMWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESMWeb.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepotsController : ControllerBase
@@ -24,6 +26,7 @@ namespace ESMWeb.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Depot>>> GetDepot()
         {
+            
             return _context.Depot.ToList();
         }
 

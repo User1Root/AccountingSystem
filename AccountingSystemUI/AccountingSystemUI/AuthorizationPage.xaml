@@ -166,7 +166,7 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="Background" TargetName="border" Value="DeepSkyBlue"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
                                 <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                             </Trigger>
@@ -185,6 +185,6 @@
         <Label Content="Вход" HorizontalAlignment="Left" Margin="355,60,0,0" VerticalAlignment="Top" Width="110" Height="55" Style="{DynamicResource LabelStyle}" FontSize="24" FontWeight="Bold"/>
         <Label Content="Логин :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,130,0,0" Width="218" Height="30" Style="{DynamicResource LabelStyle}" FontSize="18"/>
         <Label Content="Пароль :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="235,245,0,0" Width="218" Height="40" Style="{DynamicResource LabelStyle}" FontSize="18"/>
-        <Button Click="ButtonBase_OnClick" Content="Вход" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="650,385,0,0" Height="40" FontSize="16" FontWeight="Bold" Background="#FF0582BB" Style="{DynamicResource EnterButtonStyle}"/>
+        <Button x:Name="push" Click="ButtonBase_OnClick" Content="Вход" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="650,385,0,0" Height="40" FontSize="16" FontWeight="Bold" Background="#FF0582BB" Style="{DynamicResource EnterButtonStyle}"/>
     </Grid>
 </Page>

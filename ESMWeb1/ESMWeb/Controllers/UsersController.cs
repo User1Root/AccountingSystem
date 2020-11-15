@@ -17,7 +17,7 @@ using System.Security.Cryptography;
 
 namespace ESMWeb.Controllers
 {
-    //[Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,44 +30,9 @@ namespace ESMWeb.Controllers
             _context = context;
             _jwtsettings = jwtsettings.Value;
         }
-
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.User.ToListAsync();
-        }
-
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(long id)
-        {
-            var user = await _context.User.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-        // GET: api/Users/5
-        [HttpGet("GetUser")]
-        public async Task<ActionResult<User>> GetUser()
-        {
-            string userName = HttpContext.User.Identity.Name;
-            var user = await _context.User
-                .Where(user => user.UserName == userName)
-                .FirstOrDefaultAsync();
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-            user.UserPassword = null;
-            return user;
-        }
-        [HttpGet("Login")]
+       
+        // GET: api/Users/Login      
+        [HttpPost("Login")]
         public async Task<ActionResult<UserWithToken>> Login([FromBody] User user)
         { 
             var user1 = await _context.User
@@ -77,43 +42,54 @@ namespace ESMWeb.Controllers
             UserWithToken userWithToken = null;
             if (user1 != null)
             {
-                Token refreshToken = GenerateRefreshToken();
+                var refreshToken = GenerateRefreshToken();
                 user1.Token.Add(refreshToken);
                 
                 await _context.SaveChangesAsync();
 
                 userWithToken = new UserWithToken(user1);
                 userWithToken.RefreshToken = refreshToken.Token1;
-            }
+            }            
             if (userWithToken == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
-            userWithToken.AccessToken = GenerateAccessToken(user.UserId);
+            userWithToken.AccessToken = GenerateAccessToken(user1.UserId);
 
             return userWithToken;
         }
-        [HttpGet("RefreshToken")]
+
+        // GET: api/Users/RefreshToken
+        [HttpPost("RefreshToken")]
         public async Task<ActionResult<UserWithToken>> RefreshToken([FromBody] RefreshRequest refreshRequest)
         {
-            User user = GetUserFromAccessToken(refreshRequest.AccessToken);
-
-            if (user != null && ValidateRefreshToken(user, refreshRequest.RefreshToken))
+            if (refreshRequest != null)
             {
-                UserWithToken userWithToken = new UserWithToken(user);
-                userWithToken.AccessToken = GenerateAccessToken(user.UserId);
+                var user = await GetUserFromAccessToken(refreshRequest.AccessToken);
+                if (user == null)
+                    return Unauthorized();
 
-                return userWithToken;
+                var IsRefreshTokenValid = await ValidateRefreshToken(user, refreshRequest.RefreshToken);
+                if (user != null && IsRefreshTokenValid)
+                {
+                    var userWithToken = new UserWithToken(user);
+                    userWithToken.AccessToken = GenerateAccessToken(user.UserId);
+
+                    return userWithToken;
+                }
+                  return Unauthorized();
+
             }
-            return null;
+            return NoContent();
+
         }
 
-        private bool ValidateRefreshToken(User user, string refreshToken)
+        private async Task<bool> ValidateRefreshToken(User user, string refreshToken)
         {
-            Token refreshTokenUser = _context.Token.Where(rt => rt.Token1 == refreshToken)
+            var refreshTokenUser = await _context.Token.Where(rt => rt.Token1 == refreshToken)
                 .OrderByDescending(rt => rt.ExpireDate)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
             if (refreshTokenUser != null && refreshTokenUser.UserId == user.UserId && refreshTokenUser.ExpireDate > DateTime.UtcNow)
             {
                 return true;
@@ -121,7 +97,7 @@ namespace ESMWeb.Controllers
             return false;
         }
 
-        private User GetUserFromAccessToken(string accessToken)
+        private async Task<User> GetUserFromAccessToken(string accessToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtsettings.SecretKey);
@@ -132,22 +108,31 @@ namespace ESMWeb.Controllers
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.Zero,
+                
             };
 
-            SecurityToken securityToken;
-
-            var principle = tokenHandler.ValidateToken(accessToken, tokenValidationParameters,out securityToken);
-
-            JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
-            if(jwtSecurityToken!=null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,StringComparison.InvariantCultureIgnoreCase))
+            try
             {
-                var userId = principle.FindFirst(ClaimTypes.Name)?.Value;
+                SecurityToken securityToken;
 
-                return _context.User.Where(usr => usr.UserId == Convert.ToInt32(User)).FirstOrDefault();
+                var principle = tokenHandler.ValidateToken(accessToken, tokenValidationParameters, out securityToken);
+
+                var jwtSecurityToken = securityToken as JwtSecurityToken;
+                if (jwtSecurityToken != null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var userId = principle.FindFirst(ClaimTypes.Name).Value;
+
+                    var user = await _context.User.Where(usr => usr.UserId == Convert.ToInt64(userId)).FirstOrDefaultAsync();
+                    return user;
+                }
+                else
+                    return null;
             }
-
-            return null;
+            catch(ArgumentNullException)
+            {
+                return null;
+            }
         }
 
         private Token GenerateRefreshToken()
@@ -159,7 +144,7 @@ namespace ESMWeb.Controllers
                 rng.GetBytes(randomNumber);
                 refreshToken.Token1 = Convert.ToBase64String(randomNumber);
             }
-            refreshToken.ExpireDate = DateTime.UtcNow.AddHours(2);
+            refreshToken.ExpireDate = DateTime.UtcNow.AddHours(12);
             return refreshToken;
         }
 
@@ -180,69 +165,103 @@ namespace ESMWeb.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        // PUT: api/Users/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(long id, User user)
-        {
-            if (id != user.UserId)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(user).State = EntityState.Modified;
+        /* // GET: api/Users
+       [HttpGet]
+       public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+       {
+           return await _context.User.ToListAsync();
+       }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+       // GET: api/Users/5
+       [HttpGet("{id}")]
+       public async Task<ActionResult<User>> GetUser(long id)
+       {
+           var user = await _context.User.FindAsync(id);
 
-            return NoContent();
-        }
+           if (user == null)
+           {
+               return NotFound();
+           }
 
-        // POST: api/Users
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
+           return user;
+       }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
-        }
+       // GET: api/Users/5
+       [HttpGet("GetUser")]
+       public async Task<ActionResult<User>> GetUser()
+       {
+           string userName = HttpContext.User.Identity.Name;
+           var user = await _context.User
+               .Where(user => user.UserName == userName)
+               .FirstOrDefaultAsync();
 
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(long id)
-        {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+           if (user == null)
+           {
+               return NotFound();
+           }
+           user.UserPassword = null;
+           return user;
+       }
+         // PUT: api/Users/5
+       [HttpPut("{id}")]
+       public async Task<IActionResult> PutUser(long id, User user)
+       {
+           if (id != user.UserId)
+           {
+               return BadRequest();
+           }
 
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
+           _context.Entry(user).State = EntityState.Modified;
 
-            return user;
-        }
+           try
+           {
+               await _context.SaveChangesAsync();
+           }
+           catch (DbUpdateConcurrencyException)
+           {
+               if (!UserExists(id))
+               {
+                   return NotFound();
+               }
+               else
+               {
+                   throw;
+               }
+           }
 
+           return NoContent();
+       }
+
+       // POST: api/Users
+       [HttpPost]
+       public async Task<ActionResult<User>> PostUser(User user)
+       {
+           _context.User.Add(user);
+           await _context.SaveChangesAsync();
+
+           return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+       }
+
+       // DELETE: api/Users/5
+       [HttpDelete("{id}")]
+       public async Task<ActionResult<User>> DeleteUser(long id)
+       {
+           var user = await _context.User.FindAsync(id);
+           if (user == null)
+           {
+               return NotFound();
+           }
+
+           _context.User.Remove(user);
+           await _context.SaveChangesAsync();
+
+           return user;
+       }
         private bool UserExists(long id)
-        {
-            return _context.User.Any(e => e.UserId == id);
-        }
+       {
+           return _context.User.Any(e => e.UserId == id);
+       }
+        */
     }
 }

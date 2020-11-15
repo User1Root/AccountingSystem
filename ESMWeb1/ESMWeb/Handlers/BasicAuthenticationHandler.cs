@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -40,7 +41,7 @@ namespace ESMWeb.Handlers
                 string[] credentials = Encoding.UTF8.GetString(bytes).Split(":");
                 string userName = credentials[0];
                 string password = credentials[1];
-                User user = _context.User.Where(user => user.UserName == userName && user.UserPassword == password).FirstOrDefault();
+                var user = await _context.User.Where(user => user.UserName == userName && user.UserPassword == password).FirstOrDefaultAsync();
                 if (user == null)
                     AuthenticateResult.Fail("Invalid username or password ");
                 else

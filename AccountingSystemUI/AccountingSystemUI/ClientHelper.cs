@@ -8,93 +8,59 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
+using RestSharp;
 
 namespace AccountingSystemUI
 {
+    
     public static class ClientHelper
     {
-        static HttpClient client = new HttpClient();
+        //TODO:Добавить в файл настроек.
+        //как и все Url api. И обращаться через него. 
+
+        private static readonly string serverBaseUrl = @"https://localhost:44385/";
+
+        private static readonly string LoginUrl = @"api/Users/Login";
+
+        private static readonly string RefreshUrl = @"api/Users/RefreshToken";
+        
+        private static RestClient _client;
+
+        private static UserWithToken _user;
 
         static ClientHelper()
         {
-            Run();
+            _client = new RestClient(serverBaseUrl);
         }
 
-        public static async Task<ESM> GetESMAsync(string path)
+        public  static  UserWithToken UserWithToken;
+
+        public static async Task<HttpStatusCode> Login(string login,string password)
         {
-            ESM esm = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            var request = new RestRequest(LoginUrl, Method.POST);
+            request.AddJsonBody(new { username = login, userpassword = password });
+            var response = await _client.ExecuteAsync<Dictionary<string,string>>(request);
+            if(response.StatusCode == HttpStatusCode.OK)
             {
-
-                esm = await response.Content.ReadAsAsync<ESM>();
-                
+                _user = new UserWithToken(response.Data["accessToken"], response.Data["refreshToken"]);
             }
-            return esm;
+            return response.StatusCode;
         }
-
-        public static async Task<Driver> GetDriverAsync(string path)
+      
+        private static void RefreshToken()
         {
-            Driver driver = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            var request = new RestRequest(LoginUrl, Method.POST);
+            request.AddJsonBody(UserWithToken);
+            var response = _client.Execute<Dictionary<string, string>>(request);
+            if(response.StatusCode == HttpStatusCode.OK)
             {
-
-                driver = await response.Content.ReadAsAsync<Driver>();
-
+                UserWithToken.AccessToken = response.Data["accessToken"];
             }
-
-            return driver;
-        }
-
-        public static async Task<Depot> GetDepotAsync(string path)
-        {
-            Depot depot = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            else if(response.StatusCode == HttpStatusCode.Unauthorized)
             {
-
-                depot = await response.Content.ReadAsAsync<Depot>();
-
+                //выход из системы и повторная авторизация;
             }
-            return depot;
-        }
-
-        public static async Task<ESM> UpdateProductAsync(ESM esm)
-        {
-            HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/products/{esm.number}", esm);
-            response.EnsureSuccessStatusCode();
-
-            // Deserialize the updated product from the response body.
-            esm = await response.Content.ReadAsAsync<ESM>();
-            return esm;
-        }
-
-        static async void Run()
-        {
-            //спятать ссылки в appsetting
-            // Update port # in the following line.
-            client.BaseAddress = new Uri("http://localhost:64195/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //var request = new HttpRequestMessage
-            //{
-            //    RequestUri = new Uri("api/ESM/1"),
-            //    Method = HttpMethod.Get,
-            //    Headers =
-            //    {
-            //       { HttpRequestHeader.Authorization.ToString(), "[your authorization token]" },
-            //       { HttpRequestHeader.ContentType.ToString(), "multipart/mixed" }
-            //    },                
-            //
-            //};
-
-            //var res = await client.SendAsync(request);            
-
-           
+            
         }
     }
 }

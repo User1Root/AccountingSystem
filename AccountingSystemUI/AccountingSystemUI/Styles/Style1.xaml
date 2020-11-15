@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AccountingSystemUI.Styles">
+
+    <SolidColorBrush x:Key="Button.MouseOver.Foregound" Color="#FF3C7FB1"/>
+    <Style x:Key="ButtonForDockPanelStyle" x:Name="cool" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Content" Value="Подробнее.."/>
+            <Setter Property="Foreground" Value ="Black"/>
+            <Setter Property="Background" Value ="Transparent"/>
+            <Setter Property="BorderBrush" Value ="Transparent"/>
+            <Setter Property="Margin" Value ="10,0,5,0"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="12" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground"  Value="Red"/>
+            </Trigger>
+        </Style.Triggers>
+        
+
+    </Style>
+</ResourceDictionary>

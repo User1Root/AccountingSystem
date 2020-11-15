@@ -17,7 +17,7 @@ namespace AccountingSystemUI
 
         public Driver GetDriverByNuber(string number)
         {
-            return ClientHelper.GetDriverAsync(number).Result;
+            throw new NotImplementedException();
         }
 
         public ESM GetESMByNumber(string number)

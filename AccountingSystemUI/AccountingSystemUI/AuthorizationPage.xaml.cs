@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,9 @@ using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
+    //TODO:
+    //Добавить жесткую фиксацию элементов на grid.
+    //крутящуюся загрузку.
     public partial class AuthorizationPage : Page
     {
         public AuthorizationPage()
@@ -24,21 +28,42 @@ namespace AccountingSystemUI
             InitializeComponent();
         }
 
-        private const string _noConnectionMessage = "Не удалось подключиться к серверу!";
-
-        private const string _incorrectLoginOrPasswordMessage = "Не верный логин или пороль!";
-
-        private const string _noData = "Данные не введены!";
-
-        private void Connect(object sender, MouseButtonEventArgs e)
+        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-            
+            LoginBox.IsEnabled = false;
+            PasswordBox.IsEnabled = false;
+            push.IsEnabled = false;
+            if (string.IsNullOrEmpty(LoginBox.Text) || string.IsNullOrEmpty(PasswordBox.Password))
+            {
+                MessageBox.Show("Введите логин и пороль");
+                PasswordBox.Clear();
+                LoginBox.IsEnabled = true;
+                PasswordBox.IsEnabled = true;
+                push.IsEnabled = true;
+            }
+            else
+            {
+                var login = LoginBox.Text;
+                var pass = PasswordBox.Password;                
+                var statusCode = await ClientHelper.Login(login, pass);
+                if (statusCode == System.Net.HttpStatusCode.OK)
+                {
+                    NavigationService.Source = new Uri("MenuPage.xalm", UriKind.Relative);
+                }
+                else if (statusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    MessageBox.Show("неверный логин или пороль!");
+                }
+                else
+                {
+                    MessageBox.Show("Не удаётся подключиться к серверу!");
+                }                
+                LoginBox.IsEnabled = true;
+                PasswordBox.Clear();
+                PasswordBox.IsEnabled = true;               
+                push.IsEnabled = true;
+            }                                 
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative);
-        }
     }
 }

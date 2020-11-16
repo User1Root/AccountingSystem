@@ -109,7 +109,7 @@ namespace ESMWeb.Controllers
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero,
-                
+                ValidateLifetime = false
             };
 
             try

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj": {}
+    "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj": {
+    "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
+        "projectUniqueName": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
         "projectName": "ESMWeb",
-        "projectPath": "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
+        "projectPath": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
         "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\obj\\",
+        "outputPath": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A0dcW02xuD5K3w0NcFubQgVcKQLeFepJExEyveyuho2epT0IYIx6bGJC2QkYxnglSYMTqIsfIXJu7YYIRXcGyg==",
+  "dgSpecHash": "m+ak1Z+mqgGubVwlQkJ0s6QDBzIStkfsKq0KLOcRW8XAs4YxqBkKSswcvSGNSoMb2C7nLH+SmPghATRda4RC2g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\1\\Source\\Repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
+  "projectFilePath": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\1\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\1\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.9\\microsoft.aspnetcore.authentication.jwtbearer.3.1.9.nupkg.sha512",

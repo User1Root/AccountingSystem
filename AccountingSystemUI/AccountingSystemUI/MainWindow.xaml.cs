@@ -14,23 +14,32 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AccountingSystemUI
-{
+{    
     public partial class MainWindow : Window
     {
+        private bool isWindowNoraml = true;
+        
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;           
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            base.Close();
+            base.Close();            
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void MaximizedWindow(object sender, RoutedEventArgs e)
+        {
+
+            WindowState = isWindowNoraml ? WindowState.Maximized : WindowState = WindowState.Normal;
+            isWindowNoraml = !isWindowNoraml;
         }
 
         private void ToolBarPanelMove(object sender, MouseButtonEventArgs e)

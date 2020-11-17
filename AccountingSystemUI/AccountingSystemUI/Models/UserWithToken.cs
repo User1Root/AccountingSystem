@@ -8,16 +8,29 @@ using System.Windows;
 
 namespace AccountingSystemUI.Models
 {
-    public class UserWithToken
+    //TODO:придумать как хранить эти токены правильно.
+    //Думаю refresh в файл(шифр.) а access только для оперативки.
+    public static class UserWithToken
     {
-        internal string AccessToken;
+        public static string AccessToken { get; private set; }
 
-        internal string RefreshToken { get => AccountingSystemUI.Properties.Settings.Default["refreshtoken"].ToString(); }
+        public static string RefreshToken { get => AccountingSystemUI.Properties.Settings.Default["refreshtoken"].ToString(); }
 
-        public UserWithToken(string accessToken, string refreshToken)
+        public static void UpdateUser(string accessToken, string refreshToken)
         {
             AccessToken = accessToken;
             AccountingSystemUI.Properties.Settings.Default["refreshtoken"] = refreshToken;
-        }                                                 
+        }
+        
+        public static void LogOut()
+        {
+            AccountingSystemUI.Properties.Settings.Default["refreshtoken"] = string.Empty;
+            AccessToken = string.Empty;
+        }
+
+        public static void UpdateAccessToken(string accessToken)
+        {
+            AccessToken = accessToken;
+        }
     }
 }

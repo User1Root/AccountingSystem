@@ -58,15 +58,33 @@
 
     </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="28*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="125*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Fill="#FF2B4B7A" Grid.Column="0"/>
-        <Frame Name="MenuFrame" Grid.Column="1"/>
-        <Button Content="Найти ЭНИ" Tag="0" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="25,95,0,0" RenderTransformOrigin="0.533,-3.25" Height="50" Style="{DynamicResource EnterButtonStyle}" Click="Button_Click"/>
-        <Button Content="Добавить Эни" Tag="2" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="25,240,0,0" RenderTransformOrigin="0.533,-3.25" Height="50" Style="{DynamicResource EnterButtonStyle}" Click="Button_Click"/>
-        <Button Content="Выдать Эни" Tag="3" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="25,310,0,0" RenderTransformOrigin="0.533,-3.25" Height="50" Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" />
-        <Button Content="ЭНИ в Депо" Tag="1" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="25,170,0,0" RenderTransformOrigin="0.533,-3.25" Height="50" Style="{DynamicResource EnterButtonStyle}" Click="Button_Click"/>
+        <Rectangle Fill="#FF2B4B7A" Grid.Column="0" Grid.RowSpan="12" Grid.ColumnSpan="3"/>
+        <Frame Name="MenuFrame" Grid.Column="3" Grid.RowSpan="12"/>
+        <Button Content="Найти ЭНИ" Tag="0" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent"  Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" Grid.Row="2" Grid.Column="1"/>
+        <Button Content="Добавить Эни" Tag="2" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent"  Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" Grid.Row="6" Grid.Column="1"/>
+        <Button Content="Выдать Эни" Tag="3" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent"  Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" Grid.Row="8" Grid.Column="1" />
+        <Button Content="Разлогиниться" Tag="4" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent"  Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" Grid.Row="10" Grid.Column="1" />
+        <Button Content="ЭНИ в Депо" Tag="1" FontSize="19" FontWeight="Bold" Background="#FF0582BB" Foreground="White" BorderBrush="Transparent"  Style="{DynamicResource EnterButtonStyle}" Click="Button_Click" Grid.Row="4" Grid.Column="1"/>
+        <Label x:Name="userId" Content="" FontWeight="Bold" Foreground="White" Grid.Column="1" Grid.Row="0"/>
     </Grid>
 </Page>

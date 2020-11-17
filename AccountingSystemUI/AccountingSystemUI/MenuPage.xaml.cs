@@ -15,15 +15,14 @@ using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
-    /// <summary>
-    /// Логика взаимодействия для MenuPage.xaml
-    /// </summary>
+    //TODO:допилить кнопку выбора депо.
     public partial class MenuPage : Page
     {
         public MenuPage()
         {
             InitializeComponent();
             ShowsNavigationUI = false;
+            userId.Content = $" User Id :{ClientHelper.UserId}";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -35,8 +34,14 @@ namespace AccountingSystemUI
                 case "1": MenuFrame.Source = new Uri("ESMInDepotPage.xaml", UriKind.Relative); break;
                 case "2": MenuFrame.Source = new Uri("AddESMPage.xaml", UriKind.Relative); break;
                 case "3": MenuFrame.Source = new Uri("ESMGiveOutPage.xaml", UriKind.Relative); break;
-                default:  NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative); break;
+                case "4": LogOut();break;
             }
+        }
+
+        private void LogOut()
+        {
+            ClientHelper.LogOut();
+            this.NavigationService.GoBack();
         }
     }
 }

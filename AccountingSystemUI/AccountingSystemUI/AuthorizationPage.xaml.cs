@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 namespace AccountingSystemUI
 {
     //TODO:
-    //Добавить жесткую фиксацию элементов на grid.
+    //Добавить 
     //крутящуюся загрузку.
     public partial class AuthorizationPage : Page
     {
@@ -48,7 +48,7 @@ namespace AccountingSystemUI
                 var statusCode = await ClientHelper.Login(login, pass);
                 if (statusCode == System.Net.HttpStatusCode.OK)
                 {
-                    NavigationService.Source = new Uri("MenuPage.xalm", UriKind.Relative);
+                    NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative);
                 }
                 else if (statusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
@@ -56,7 +56,7 @@ namespace AccountingSystemUI
                 }
                 else
                 {
-                    MessageBox.Show("Не удаётся подключиться к серверу!");
+                    MessageBox.Show($"Не удаётся подключиться к серверу! Код ошибки : {statusCode}");
                 }                
                 LoginBox.IsEnabled = true;
                 PasswordBox.Clear();

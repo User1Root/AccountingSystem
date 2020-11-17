@@ -34,8 +34,6 @@
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -70,17 +68,19 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="14*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Rectangle  HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="800" Fill="#FF1C2121" MouseLeftButtonDown="ToolBarPanelMove" Grid.ColumnSpan="3" Grid.Row="0"/>
-        <Button Foreground="White" Content="____" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe UI Emoji" Style="{DynamicResource TittleButtonStyle}" Height="30" Click="MinimizeWindow" Grid.Column="1" Grid.Row="0"/>
-        <Button Foreground="White" Content="X" FontSize="18" HorizontalAlignment="Left" Width="40"  Background="Transparent" BorderBrush="Transparent" Click="Exit" FontFamily="Segoe UI Emoji" Style="{DynamicResource TittleButtonStyle}" Grid.Column="2" Grid.Row="0"/>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Source="AuthorizationPage.xaml" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Rectangle Fill="#FF1C2121" MouseLeftButtonDown="ToolBarPanelMove" Grid.Column="0"  Grid.ColumnSpan="4" Grid.Row="0"/>
+        <Button Foreground="White" Content="____" FontSize="18"  Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe UI Emoji" Style="{DynamicResource TittleButtonStyle}"  Click="MinimizeWindow" Grid.Column="1" Grid.Row="0"/>
+        <Button Foreground="White" Content="X" FontSize="18"    Background="Transparent" BorderBrush="Transparent" Click="Exit" FontFamily="Segoe UI Emoji" Style="{DynamicResource TittleButtonStyle}" Grid.Column="3" Grid.Row="0"/>
+        <Button Foreground="White" Content="[___]" FontSize="18"  Background="Transparent" BorderBrush="Transparent" Click="MaximizedWindow" FontFamily="Segoe UI Emoji" Style="{DynamicResource TittleButtonStyle}" Grid.Column="2" Grid.Row="0"/>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Source="AuthorizationPage.xaml" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
     </Grid>
 
 </Window>

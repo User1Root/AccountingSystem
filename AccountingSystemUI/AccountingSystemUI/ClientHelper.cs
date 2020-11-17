@@ -17,51 +17,64 @@ namespace AccountingSystemUI
     {
         //TODO:Добавить в файл настроек.
         //как и все Url api. И обращаться через него. 
-
+        #region Api Url
         private static readonly string serverBaseUrl = @"https://localhost:44385/";
 
         private static readonly string LoginUrl = @"api/Users/Login";
 
         private static readonly string RefreshUrl = @"api/Users/RefreshToken";
-        
+        #endregion
+
         private static RestClient _client;
 
-        private static UserWithToken _user;
+        internal static long UserId { get; private set; }
 
         static ClientHelper()
         {
-            _client = new RestClient(serverBaseUrl);
+            _client = new RestClient(serverBaseUrl);                
         }
 
-        public  static  UserWithToken UserWithToken;
+        internal static void Connect()
+        {
+            if (_client == null)
+                _client = new RestClient(serverBaseUrl);
+        }
 
-        public static async Task<HttpStatusCode> Login(string login,string password)
+        internal static void LogOut()
+        {
+            UserWithToken.LogOut();           
+        }
+
+        internal static async Task<HttpStatusCode> Login(string login,string password)
         {
             var request = new RestRequest(LoginUrl, Method.POST);
             request.AddJsonBody(new { username = login, userpassword = password });
             var response = await _client.ExecuteAsync<Dictionary<string,string>>(request);
             if(response.StatusCode == HttpStatusCode.OK)
             {
-                _user = new UserWithToken(response.Data["accessToken"], response.Data["refreshToken"]);
+                UserWithToken.UpdateUser(response.Data["accessToken"], response.Data["refreshToken"]);
+                UserId = Convert.ToInt64(response.Data["userId"]);
             }
             return response.StatusCode;
         }
       
-        private static void RefreshToken()
+        private async static Task<bool> RefreshToken()
         {
-            var request = new RestRequest(LoginUrl, Method.POST);
-            request.AddJsonBody(UserWithToken);
-            var response = _client.Execute<Dictionary<string, string>>(request);
+            var request = new RestRequest(RefreshUrl, Method.POST);
+            request.AddJsonBody(new { accessToken = UserWithToken.AccessToken, refreshToken = UserWithToken.RefreshToken });
+            var response = await _client.ExecuteAsync<Dictionary<string, string>>(request);
             if(response.StatusCode == HttpStatusCode.OK)
             {
-                UserWithToken.AccessToken = response.Data["accessToken"];
+                UserWithToken.UpdateAccessToken(response.Data["accessToken"]);
+                UserId = Convert.ToInt64(response.Data["userId"]);
+                return true;
             }
-            else if(response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                //выход из системы и повторная авторизация;
-            }
-            
+
+            return false;
         }
+
+        
+
     }
 }
 

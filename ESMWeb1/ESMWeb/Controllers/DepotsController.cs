@@ -26,10 +26,48 @@ namespace ESMWeb.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Depot>>> GetDepot()
         {
-            
-            return _context.Depot.ToList();
+
+            return await _context.Depot.ToListAsync();
         }
 
+        // GET: api/Depots/5/ESM
+        [HttpGet("{id}/ESM")]
+        public async Task<ActionResult<Depot>> GetInformationAboutAllEsmInThisDepot(long id)
+        {
+            var depot = await _context.Depot
+                .Include(dep => dep.EsmLastDepotNavigation)
+                .Where(dep => dep.DepotId == id)
+                .FirstOrDefaultAsync();
+
+            if (depot == null)
+            {
+                return NotFound();
+            }
+
+            return depot;
+        }
+
+        // GET: api/Depots/5/RecordedESM
+        [HttpGet("{id}/RecordedESM")]
+        public async Task<ActionResult<Depot>> GetInformationOnAllEsmRecordedAtThisDepot(long id)
+        {
+            var depot = await _context.Depot
+                .Include(dep => dep.EsmHomeDepotNavigation)               
+                .Where(dep => dep.DepotId == id)
+                .FirstOrDefaultAsync();
+
+            if (depot == null)
+            {
+                return NotFound();
+            }
+
+            return depot;
+        }
+
+
+    }
+}
+/*      
         // GET: api/Depots/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Depot>> GetDepot(long id)
@@ -45,40 +83,7 @@ namespace ESMWeb.Controllers
             return depot1;
         }
 
-        // GET: api/Depots/5
-        [HttpGet("GetDepotDetalis/{id}")]
-        public async Task<ActionResult<Depot>> GetDepotDetalis(long id)
-        {
-            //Eager Loading
-            //var depot1 = _context.Depot
-            //    .Include(dep => dep.Driver)
-            //    .Include(dep => dep.EsmHomeDepotNavigation)
-            //    .Include(dep => dep.EsmLastDepotNavigation)
-            //    .Where(dep => dep.DepotId == id)
-            //    .FirstOrDefault();
-
-            //Explicit Loading
-            var depot1 = await _context.Depot.SingleAsync(dep => dep.DepotId == id);
-
-            _context.Entry(depot1)
-                .Collection(dep => dep.Driver)
-                .Query()
-                .Where(drv => drv.DriverFirstName.Contains("Олег"))
-                .Load();
-
-            _context.Entry(depot1)
-                .Collection(dep => dep.EsmLastDepotNavigation)
-                .Load();
-
-            if (depot1 == null)
-            {
-                return NotFound();
-            }
-
-            return depot1;
-        }
-
-        // GET: api/Depots/5
+// GET: api/Depots/5
         [HttpGet("PostDepotDetalis/")]
         public async Task<ActionResult<Depot>> PostDepotDetalis()
         {
@@ -102,7 +107,7 @@ namespace ESMWeb.Controllers
 
             return depot1;
         }
-        // PUT: api/Depots/5
+ // PUT: api/Depots/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -179,6 +184,4 @@ namespace ESMWeb.Controllers
         private bool DepotExists(long id)
         {
             return _context.Depot.Any(e => e.DepotId == id);
-        }
-    }
-}
+        }*/

@@ -30,8 +30,8 @@ namespace ESMWeb.Controllers
             _context = context;
             _jwtsettings = jwtsettings.Value;
         }
-       
-        // GET: api/Users/Login      
+
+        // GET: api/Users/Login     
         [HttpPost("Login")]
         public async Task<ActionResult<UserWithToken>> Login([FromBody] User user)
         { 

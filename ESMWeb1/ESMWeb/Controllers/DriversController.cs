@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ESMWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ESMWeb.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DriversController : ControllerBase
@@ -40,10 +42,10 @@ namespace ESMWeb.Controllers
 
             return driver;
         }
-
-        // PUT: api/Drivers/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        
+    }
+}
+/*// PUT: api/Drivers/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDriver(long id, Driver driver)
         {
@@ -74,8 +76,6 @@ namespace ESMWeb.Controllers
         }
 
         // POST: api/Drivers
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Driver>> PostDriver(Driver driver)
         {
@@ -118,6 +118,4 @@ namespace ESMWeb.Controllers
         private bool DriverExists(long id)
         {
             return _context.Driver.Any(e => e.DriverId == id);
-        }
-    }
-}
+        }*/

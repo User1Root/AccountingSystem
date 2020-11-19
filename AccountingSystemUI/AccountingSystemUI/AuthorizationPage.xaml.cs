@@ -44,8 +44,8 @@ namespace AccountingSystemUI
             else
             {
                 var login = LoginBox.Text;
-                var pass = PasswordBox.Password;                
-                var statusCode = await ClientHelper.Login(login, pass);
+                var pass = PasswordBox.Password;
+                var statusCode = await Task.Run(() => ClientHelper.Login(login, pass));
                 if (statusCode == System.Net.HttpStatusCode.OK)
                 {
                     NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative);
@@ -56,7 +56,7 @@ namespace AccountingSystemUI
                 }
                 else
                 {
-                    MessageBox.Show($"Не удаётся подключиться к серверу! Код ошибки : {statusCode}");
+                    MessageBox.Show($"Возникли проблемы! Код ошибки : {statusCode}");
                 }                
                 LoginBox.IsEnabled = true;
                 PasswordBox.Clear();

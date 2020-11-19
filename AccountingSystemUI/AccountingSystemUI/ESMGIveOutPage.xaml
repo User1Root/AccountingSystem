@@ -101,44 +101,37 @@
         </Style>
     </Page.Resources>
 
-    <Grid Margin="-1,0,1,0" RenderTransformOrigin="0.5,0.5">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="229*"/>
-            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="225*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="80*"/>
             <ColumnDefinition Width="73*"/>
-            <ColumnDefinition Width="65*"/>
-            <ColumnDefinition Width="176*"/>
-            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="105*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="53*"/>
             <ColumnDefinition Width="22*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="-0.073"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Grid.RenderTransform>
         <Grid.RowDefinitions>
-            <RowDefinition Height="71*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="46*"/>
             <RowDefinition Height="73*"/>
             <RowDefinition Height="66*"/>
-            <RowDefinition Height="67*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="42*"/>
             <RowDefinition Height="84*"/>
             <RowDefinition Height="60*"/>
             <RowDefinition Height="29*"/>
         </Grid.RowDefinitions>
 
-        <TextBox FontSize="30" FontWeight="Bold" Background="#FFBDDAD6" Style="{DynamicResource TextBoxStyle}" TextChanged="TextBox_TextChanged" Margin="26,2,1,1" Grid.Row="1" Grid.ColumnSpan="3"/>
-        <Button Content="Выдать ЭНИ" FontSize="20" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Margin="0,5,0,0" VerticalAlignment="Top" Height="63" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <TextBox FontSize="30" FontWeight="Bold" Background="#FFBDDAD6" Style="{DynamicResource TextBoxStyle}" TextChanged="TextBox_TextChanged" Margin="26,64,1,83" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
-        <Label Content="Номер водителя:" HorizontalAlignment="Left" Margin="26,23,0,0" VerticalAlignment="Top" Width="302" Height="51" FontSize="27" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
-        <Label Content="Номер ЭНИ:" HorizontalAlignment="Left" Margin="26,15,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.533,1.651" Height="59" Width="221" FontSize="27" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <Button x:Name="cancelBTN"  Content="Отмена" FontSize="20" FontWeight="Bold" Foreground="Black" Background="YellowGreen" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click2" Margin="1,0,51.005,0" VerticalAlignment="Top" Height="63" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Visibility="Hidden"/>
-        <Button x:Name="confirmBTN" Content="Подтвердить" FontSize="20" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click1" Margin="49,0,1,0" VerticalAlignment="Top" Height="63" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" Visibility="Hidden"/>
-        <Rectangle Grid.Column="4" Fill="White" Height="78" Margin="49,0,59,45" Grid.Row="2" Stroke="Black" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <Image x:Name="answerImage" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="92" Height="78" VerticalAlignment="Top" Margin="6.995,10,0,0"/>
+        <TextBox x:Name="driverIdBox" FontSize="30" FontWeight="Bold" Background="#FFBDDAD6" Style="{DynamicResource TextBoxStyle}" Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="1"/>
+        <Button Content="Выдать ЭНИ" FontSize="20" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="esmIdBox" FontSize="30" FontWeight="Bold" Background="#FFBDDAD6" Style="{DynamicResource TextBoxStyle}" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1"/>
+        <Label Content="Номер водителя:" FontSize="27"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Label Content="Номер ЭНИ:" FontSize="27" Grid.Row="3" Grid.Column="1"/>
+        <Image x:Name="answerImage" Grid.Column="6" Grid.Row="3" Grid.RowSpan="2"/>
 
     </Grid>
 </Page>

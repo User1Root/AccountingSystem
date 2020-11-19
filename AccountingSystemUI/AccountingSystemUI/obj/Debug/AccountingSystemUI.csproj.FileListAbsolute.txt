@@ -34,3 +34,8 @@ C:\Users\1\Source\Repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\o
 C:\Users\1\Source\Repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\obj\Debug\Styles\Style1.baml
 C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\RestSharp.dll
 C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\RestSharp.xml
+C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\1\source\repos\AccountingSystem\AccountingSystemUI\AccountingSystemUI\bin\Debug\System.Memory.dll

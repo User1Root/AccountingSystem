@@ -8,6 +8,9 @@ namespace AccountingSystemUI.Models
 {
     public class ESM
     {
-        public string number;
+        public long EsmId { get; set; }
+        public byte Status { get; set; }
+        public long? LastDriver { get; set; }
+        public long? LastDepot { get; set; }
     }
 }

@@ -57,46 +57,42 @@ namespace ESMWeb.Controllers
 
             userWithToken.AccessToken = GenerateAccessToken(user1.UserId);
 
-            return userWithToken;
+            return Ok(userWithToken);
         }
-
+        
         // GET: api/Users/RefreshToken
         [HttpPost("RefreshToken")]
-        public async Task<ActionResult<UserWithToken>> RefreshToken([FromBody] RefreshRequest refreshRequest)
+        public async Task<ActionResult<UserWithToken>> RefreshToken([FromBody] RefreshRequest refreshToken)
         {
-            if (refreshRequest != null)
+            var userId = await ValidateRefreshToken(refreshToken.RefreshToken);
+            if (userId != null)
             {
-                var user = await GetUserFromAccessToken(refreshRequest.AccessToken);
+                var user = await _context.User.FindAsync(userId);
                 if (user == null)
-                    return Unauthorized();
+                    return StatusCode(500);
 
-                var IsRefreshTokenValid = await ValidateRefreshToken(user, refreshRequest.RefreshToken);
-                if (user != null && IsRefreshTokenValid)
-                {
-                    var userWithToken = new UserWithToken(user);
-                    userWithToken.AccessToken = GenerateAccessToken(user.UserId);
+                var userWithToken = new UserWithToken(user);
+                userWithToken.AccessToken = GenerateAccessToken(user.UserId);                
 
-                    return userWithToken;
-                }
-                  return Unauthorized();
-
+                return Ok(userWithToken);
             }
-            return NoContent();
+            return Unauthorized();
 
         }
 
-        private async Task<bool> ValidateRefreshToken(User user, string refreshToken)
-        {
+        private async Task<long?> ValidateRefreshToken(string refreshToken)
+        {           
             var refreshTokenUser = await _context.Token.Where(rt => rt.Token1 == refreshToken)
                 .OrderByDescending(rt => rt.ExpireDate)
                 .FirstOrDefaultAsync();
-            if (refreshTokenUser != null && refreshTokenUser.UserId == user.UserId && refreshTokenUser.ExpireDate > DateTime.UtcNow)
+            if (refreshTokenUser != null && refreshTokenUser.ExpireDate > DateTime.UtcNow)
             {
-                return true;
+                return refreshTokenUser.UserId;
             }
-            return false;
+            return null;
         }
 
+        //пока не удалил. Может пригодится.
         private async Task<User> GetUserFromAccessToken(string accessToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -144,7 +140,7 @@ namespace ESMWeb.Controllers
                 rng.GetBytes(randomNumber);
                 refreshToken.Token1 = Convert.ToBase64String(randomNumber);
             }
-            refreshToken.ExpireDate = DateTime.UtcNow.AddHours(12);
+            refreshToken.ExpireDate = DateTime.UtcNow.AddDays(12);
             return refreshToken;
         }
 
@@ -158,7 +154,7 @@ namespace ESMWeb.Controllers
                 {
                     new Claim(ClaimTypes.Name,Convert.ToString(userId))
                 }),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

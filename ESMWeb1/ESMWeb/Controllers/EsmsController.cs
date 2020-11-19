@@ -23,7 +23,7 @@ namespace ESMWeb.Controllers
             _context = context;
         }
 
-        // GET: api/Esms/5
+        // GET: api/Esms/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Esm>> GetEsm(long id)
         {
@@ -38,7 +38,7 @@ namespace ESMWeb.Controllers
             return esm;
         }
 
-        // GET: api/Esms/5/Information
+        // GET: api/Esms/{id}/Information
         [HttpGet("{id}/Information")]
         public async Task<ActionResult<Esm>> GetEsmAndAllInformationAboutHim(long id)
         {
@@ -81,7 +81,8 @@ namespace ESMWeb.Controllers
             }
 
             var esmCurrent = await _context.Esm.FindAsync(esm.EsmId);
-            if(esmCurrent == null)
+
+            if (esmCurrent == null || !(esmCurrent.LastDepot != null && esmCurrent.LastDepot == esm.LastDepot)) 
             {
                 return BadRequest();
             }
@@ -102,7 +103,7 @@ namespace ESMWeb.Controllers
                 }
                 else
                 {
-                    //TODO:что тут?
+                    //что тут?
                     throw;
                 }
             }
@@ -131,12 +132,13 @@ namespace ESMWeb.Controllers
             }
 
             var esmCurrent = await _context.Esm.FindAsync(esm.EsmId);
-            if (esmCurrent == null)
+
+            if  (esmCurrent == null || !(esmCurrent.LastDriver != null && esmCurrent.LastDriver == esm.LastDriver)) 
             {
                 return BadRequest();
             }
 
-            if(esm.LastDepot != esmCurrent.HomeDepot)
+            if (esm.LastDepot != esmCurrent.HomeDepot)
             {
                 esmCurrent.Status = 3;
             }

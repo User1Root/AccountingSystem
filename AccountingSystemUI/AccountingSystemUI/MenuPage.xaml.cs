@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
-    //TODO:допилить кнопку выбора депо.
     public partial class MenuPage : Page
     {
         public MenuPage()
@@ -23,6 +22,28 @@ namespace AccountingSystemUI
             InitializeComponent();
             ShowsNavigationUI = false;
             userId.Content = $" User Id :{ClientHelper.UserId}";
+            depotId.SelectionChanged += ClientHelper.DepotIdWasChanged;
+            ClientHelper.LogOutHandler += LogOut;
+            var depots = ClientHelper.GetDepots();
+            if(depots.Item1 == System.Net.HttpStatusCode.OK)
+            {
+                foreach(var depot in depots.Item2)
+                {
+                    depotId.Items.Add($"{depot.depotId}: {depot.depotName}");
+                }
+                depotId.SelectedIndex = 0;
+            }
+            else if(depots.Item1 == System.Net.HttpStatusCode.Unauthorized)
+            {
+                MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
+                LogOut();
+            }
+            else
+            {
+                MessageBox.Show($"Возникли проблемы при загрузке страницы! Код ошибки : {depots.Item1}");
+                //Что тут делать?
+                LogOut();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,14 +55,20 @@ namespace AccountingSystemUI
                 case "1": MenuFrame.Source = new Uri("ESMInDepotPage.xaml", UriKind.Relative); break;
                 case "2": MenuFrame.Source = new Uri("AddESMPage.xaml", UriKind.Relative); break;
                 case "3": MenuFrame.Source = new Uri("ESMGiveOutPage.xaml", UriKind.Relative); break;
-                case "4": LogOut();break;
+                case "4": ClientHelper.LogOut(); break;
             }
         }
 
         private void LogOut()
         {
-            ClientHelper.LogOut();
-            this.NavigationService.GoBack();
+            if(this.NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                NavigationService.Navigate(new Uri("AuthorizationPage.xaml", UriKind.Relative));
+            }
         }
     }
 }

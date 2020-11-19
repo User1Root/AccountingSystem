@@ -15,9 +15,8 @@ using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
-    /// <summary>
-    /// Логика взаимодействия для AddESMPage.xaml
-    /// </summary>
+    //TODO:
+    //Унаследовать от giveOutPage,чтобы код не повторялся.
     public partial class AddESMPage : Page
     {
         public AddESMPage()
@@ -25,37 +24,36 @@ namespace AccountingSystemUI
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool serverAnswer = false;
+            var driverId = Convert.ToInt64(driverIdBox.Text);
+            var esmId = Convert.ToInt64(esmIdBox.Text);
 
-            if (serverAnswer)
+            var response = ClientHelper.TakeEsm(driverId, esmId);
+
+            if (response.Item1 == System.Net.HttpStatusCode.OK)
             {
-                //кнопки Подтвердить и Отмена становятся видимыми и появляется галочка
                 answerImage.Source = new BitmapImage(new Uri("Images/check.png", UriKind.Relative));
-                confirmBTN.Visibility = Visibility.Visible;
-                cancelBTN.Visibility = Visibility.Visible;
+            }
+            else if (response.Item1 == System.Net.HttpStatusCode.BadRequest)
+            {
+                answerImage.Source = new BitmapImage(new Uri("Images/cross.png", UriKind.Relative));
+                //TODO:
+                //добавить вывод проблемы!.
+                MessageBox.Show("Не корректные данные");
+            }
+            else if (response.Item1 == System.Net.HttpStatusCode.Unauthorized)
+            {
+                MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
+                ClientHelper.LogOut();
             }
             else
             {
-                answerImage.Source = new BitmapImage(new Uri("Images/cross.png", UriKind.Relative));
-                cancelBTN.Visibility = Visibility.Visible;
+                MessageBox.Show($"Возникли проблемы при загрузке страницы! Код ошибки : {response.Item1}");
+                ClientHelper.LogOut();
             }
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click1(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

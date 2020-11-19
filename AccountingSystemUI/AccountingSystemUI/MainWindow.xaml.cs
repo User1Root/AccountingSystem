@@ -22,7 +22,13 @@ namespace AccountingSystemUI
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;           
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            ClientHelper.Connect(out bool isOldfRefreshtokenValid);
+            if (isOldfRefreshtokenValid)
+            {
+                MainFrame.Navigate(new Uri("MenuPage.xaml", UriKind.Relative));
+            }
+            
         }
 
         private void Exit(object sender, RoutedEventArgs e)

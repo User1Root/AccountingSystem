@@ -26,7 +26,6 @@ namespace ESMWeb.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Depot>>> GetDepot()
         {
-
             return await _context.Depot.ToListAsync();
         }
 

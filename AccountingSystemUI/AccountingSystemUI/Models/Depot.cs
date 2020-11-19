@@ -8,5 +8,10 @@ namespace AccountingSystemUI.Models
 {
     public class Depot
     {
+        public long depotId { get; set; }
+        public string depotName { get; set; }
+        public ESM[] EsmHomeDepotNavigation { get; set; }
+        public ESM[] EsmLastDepotNavigation { get; set; }
     }
 }
+

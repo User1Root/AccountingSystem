@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
@@ -48,7 +36,7 @@ namespace AccountingSystemUI
                 var statusCode = await Task.Run(() => ClientHelper.Login(login, pass));
                 if (statusCode == System.Net.HttpStatusCode.OK)
                 {
-                    NavigationService.Source = new Uri("MenuPage.xaml", UriKind.Relative);
+                    (Application.Current.MainWindow as MainWindow).MainFrame.Navigate(new Uri("MenuPage.xaml", UriKind.Relative));
                 }
                 else if (statusCode == System.Net.HttpStatusCode.Unauthorized)
                 {

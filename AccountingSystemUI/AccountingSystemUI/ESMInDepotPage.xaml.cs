@@ -1,19 +1,10 @@
 ﻿using AccountingSystemUI.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
@@ -43,9 +34,8 @@ namespace AccountingSystemUI
                 btn.Style = (Style)Application.Current.Resources["ButtonForDockPanelStyle"] ?? throw new ArgumentException();
                 dp.Children.Add(btn);
 
-                //TODO:
-                //заменить на окно с подробной информацией об эни.
-                //btn.Click += new RoutedEventHandler((obj, e) => MessageBox.Show(ESMNumber));
+                btn.Click += new RoutedEventHandler((obj, e) => { GetEsmInformation(esm.EsmId); }
+                );
 
                 var brd = new Border()
                 {
@@ -84,15 +74,10 @@ namespace AccountingSystemUI
                 }
                 
             }
-            else if (response.Item1 == System.Net.HttpStatusCode.Unauthorized)
-            {
-                MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
-                ClientHelper.LogOut();
-            }
             else
             {
                 MessageBox.Show($"Возникли проблемы при загрузке страницы! Код ошибки : {response.Item1}");
-                ClientHelper.LogOut();
+                //ClientHelper.LogOut();
             }
 
             button.IsEnabled = true;
@@ -117,5 +102,7 @@ namespace AccountingSystemUI
             var esms = from esm in depot.EsmHomeDepotNavigation where esm.Status == 2 select esm;
             CreateDockPanelsForESMList(esms.ToArray());
         }
+
+        private void GetEsmInformation(long esmId) => this.NavigationService.Navigate(new ESMSearchPage(esmId));
     }
 }

@@ -15,8 +15,6 @@ using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
-    //TODO:
-    //Унаследовать от giveOutPage,чтобы код не повторялся.
     public partial class AddESMPage : Page
     {
         public AddESMPage()
@@ -27,6 +25,17 @@ namespace AccountingSystemUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Convert.ToInt64(driverIdBox.Text);
+                Convert.ToInt64(esmIdBox.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Данные имели не верный формат.");
+                return;
+            }
+
             var driverId = Convert.ToInt64(driverIdBox.Text);
             var esmId = Convert.ToInt64(esmIdBox.Text);
 
@@ -43,15 +52,10 @@ namespace AccountingSystemUI
                 //добавить вывод проблемы!.
                 MessageBox.Show("Не корректные данные");
             }
-            else if (response.Item1 == System.Net.HttpStatusCode.Unauthorized)
-            {
-                MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
-                ClientHelper.LogOut();
-            }
             else
             {
                 MessageBox.Show($"Возникли проблемы при загрузке страницы! Код ошибки : {response.Item1}");
-                ClientHelper.LogOut();
+                //ClientHelper.LogOut();
             }
         }
 

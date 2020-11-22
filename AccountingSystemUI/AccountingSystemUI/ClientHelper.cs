@@ -1,15 +1,11 @@
 ﻿using AccountingSystemUI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using RestSharp;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace AccountingSystemUI
 {
@@ -35,6 +31,8 @@ namespace AccountingSystemUI
         private static readonly string _giveOutEsm = @"api/Esms/GiveOut/{id}";
 
         private static readonly string _takeEsm = @"api/Esms/Take/{id}";
+
+        private static readonly string _esmInfo = @"api/Esms/{id}/Information";
         #endregion
 
         private static RestClient _client;
@@ -147,6 +145,13 @@ namespace AccountingSystemUI
             return GetResponse<ESM>(request);
         }
 
+        public static Tuple<HttpStatusCode, ESM> GetEsmInfo(long esmId)
+        {
+            var request = new RestRequest(_esmInfo, Method.GET);
+            request.AddUrlSegment("id", esmId.ToString());
+            return GetResponse<ESM>(request);
+        }
+
         private static Tuple<HttpStatusCode,T> GetResponse<T>(RestRequest request)
         {            
             for (var i = 0; i < 2; i++)
@@ -165,12 +170,13 @@ namespace AccountingSystemUI
                         continue;
                     else
                     {
-                        return new Tuple<HttpStatusCode, T>(response.StatusCode, default(T));
+                        MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
+                        LogOut();
                     }
                 }
                 else
                 {
-                    return new Tuple<HttpStatusCode, T>(0, default(T));
+                    return new Tuple<HttpStatusCode, T>(response.StatusCode, default(T));
                 }
             }
 

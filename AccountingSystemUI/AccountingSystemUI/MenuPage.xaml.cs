@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AccountingSystemUI
 {
@@ -33,16 +23,11 @@ namespace AccountingSystemUI
                 }
                 depotId.SelectedIndex = 0;
             }
-            else if(depots.Item1 == System.Net.HttpStatusCode.Unauthorized)
-            {
-                MessageBox.Show("Время подключения истекло. Пожалуйста, авторизуйтесь повторно.");
-                LogOut();
-            }
             else
             {
                 MessageBox.Show($"Возникли проблемы при загрузке страницы! Код ошибки : {depots.Item1}");
                 //Что тут делать?
-                LogOut();
+                //LogOut();
             }
         }
 
@@ -61,13 +46,15 @@ namespace AccountingSystemUI
 
         private void LogOut()
         {
-            if(this.NavigationService.CanGoBack)
+            var frame = (Application.Current.MainWindow as MainWindow).MainFrame;
+
+            if(frame.CanGoBack)
             {
-                NavigationService.GoBack();
+                frame.GoBack();
             }
             else
             {
-                NavigationService.Navigate(new Uri("AuthorizationPage.xaml", UriKind.Relative));
+               frame.Navigate(new Uri("AuthorizationPage.xaml", UriKind.Relative));
             }
         }
     }

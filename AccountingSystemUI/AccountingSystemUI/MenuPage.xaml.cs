@@ -47,15 +47,8 @@ namespace AccountingSystemUI
         private void LogOut()
         {
             var frame = (Application.Current.MainWindow as MainWindow).MainFrame;
-
-            if(frame.CanGoBack)
-            {
-                frame.GoBack();
-            }
-            else
-            {
-               frame.Navigate(new Uri("AuthorizationPage.xaml", UriKind.Relative));
-            }
+            frame.Navigate(new Uri("AuthorizationPage.xaml", UriKind.Relative));
+            
         }
     }
 }

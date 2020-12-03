@@ -64,7 +64,9 @@ namespace AccountingSystemUI
 
         private void Back(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.GoBack();
+            //this.NavigationService.GoBack();
+            var frame = (Application.Current.MainWindow as MainWindow).MainFrame;
+            frame.GoBack();
         }
 
         private void PrintEsm(ESM esm)
@@ -89,7 +91,7 @@ namespace AccountingSystemUI
             esmInfo.AppendLine($"Местоположение последнего депо: {esm.LastDepotNavigation.depotName}");
 
             if (esm.LastDriver != null)
-                esmInfo.AppendLine($"Номер последниго машиниста: {esm.LastDriver}");
+                esmInfo.AppendLine($"Номер последнего машиниста: {esm.LastDriver}");
 
 
             resultTextBox.Text = esmInfo.ToString();

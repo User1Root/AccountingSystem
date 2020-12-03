@@ -7,14 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ESMSearchPage"
-      Background="SeaGreen">
+      Background="DarkGray">
 
     <Page.Resources>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="LawnGreen"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Wheat"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="ForestGreen"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="White"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
@@ -55,9 +55,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="Black"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="White"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="White"/>
         <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
             <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -73,7 +73,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border x:Name="border" CornerRadius="12" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#FFC7EAE5"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="White"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -117,9 +117,9 @@
             <RowDefinition Height="53*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="inputBx" Grid.Column="1" FontSize="30" FontWeight="Bold" Grid.Row="1" Background="#FFBDDAD6" Style="{DynamicResource TextBoxStyle}" Grid.ColumnSpan="2"/>
-        <Button x:Name="searchBnt" Content="Поиск" FontSize="19" FontWeight="Bold" Foreground="Black" Grid.Column="4" Grid.Row="1" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="SeachInfo"/>
-        <TextBox x:Name="resultTextBox" IsReadOnly="True" FontSize="20" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4"/>
-        <Button x:Name="backBtn" Visibility="Hidden" Click="Back" Content="Назад" Grid.Column="1" Grid.Row="0" FontSize="19" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}"/>
+        <TextBox x:Name="inputBx" Grid.Column="1" FontSize="30" FontWeight="Bold" Grid.Row="1" Background="White" Style="{DynamicResource TextBoxStyle}" Grid.ColumnSpan="2" Height="57" VerticalAlignment="Top" Margin="0,9,0,0" Grid.RowSpan="2"/>
+        <Button x:Name="searchBnt" Content="Поиск" FontSize="19" FontWeight="Bold" Foreground="Black" Grid.Column="4" Grid.Row="1" Background="Gray" Style="{DynamicResource SeachButtonStyle}" Click="SeachInfo" Height="57" VerticalAlignment="Top" Margin="0,9,0,0" Grid.RowSpan="2"/>
+        <TextBox x:Name="resultTextBox" IsReadOnly="True" FontSize="20" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4" Background="White"/>
+        <Button x:Name="backBtn" Visibility="Hidden" Click="Back" Content="Назад" Grid.Column="1" Grid.Row="0" FontSize="19" FontWeight="Bold" Foreground="Black" Background="Gray" Style="{DynamicResource SeachButtonStyle}" Height="45" VerticalAlignment="Top" Margin="0,4,0,0" Grid.RowSpan="2"/>
     </Grid>
 </Page>

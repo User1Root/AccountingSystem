@@ -5,17 +5,17 @@
     <SolidColorBrush x:Key="Button.MouseOver.Foregound" Color="#FF3C7FB1"/>
     <Style x:Key="ButtonForDockPanelStyle" x:Name="cool" TargetType="Button">
         <Style.Setters>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="17"/>
             <Setter Property="Content" Value="Подробнее.."/>
             <Setter Property="Foreground" Value ="Black"/>
-            <Setter Property="Background" Value ="Transparent"/>
-            <Setter Property="BorderBrush" Value ="Transparent"/>
+            <Setter Property="Background" Value ="White"/>
+            <Setter Property="BorderBrush" Value ="White"/>
             <Setter Property="Margin" Value ="10,0,5,0"/>
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" CornerRadius="12" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="true">
+                        <Border x:Name="border" CornerRadius="12" BorderBrush="Transparent" BorderThickness="0" Background="White" SnapsToDevicePixels="true">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>

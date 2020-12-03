@@ -7,14 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ESMInDepotPage"
-      Background="SeaGreen">
+      Background="DarkGray">
 
     <Page.Resources>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="LawnGreen"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Wheat"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="ForestGreen"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="White"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
@@ -99,7 +99,7 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
-        <SolidColorBrush x:Key="ListBox.Static.Background" Color="Coral"/>
+        <SolidColorBrush x:Key="ListBox.Static.Background" Color="Gray"/>
         <SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
         <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#FFFFFFFF"/>
         <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
@@ -160,10 +160,10 @@
             <RowDefinition Height="23*"/>
             <RowDefinition Height="54*"/>
         </Grid.RowDefinitions>
-        <Button Tag="0" Content="ЭНИ в депо." FontSize="16" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Margin="3,28,2,3" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"/>
-        <Button Tag="2" Content="ЭНИ в поездке." FontSize="16" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Margin="4,0,5,2" Grid.Column="3" Grid.Row="6"/>
-        <Button Tag="1" Content="Эни из других депо." FontSize="16" FontWeight="Bold" Foreground="Black" Background="#FF11B011" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Margin="4,0,0,55" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2"/>
-        <ListBox x:Name="ESMList" Height="349" Margin="2,1,3,0" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1" Grid.RowSpan="7" Style="{DynamicResource ListBoxStyle1}" />
+        <Button Tag="0" Content="ЭНИ в депо" FontSize="15" FontWeight="Bold" Foreground="Black" Background="Gray" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Grid.Column="3" Grid.Row="2"/>
+        <Button Tag="2" Content="ЭНИ в поездке" FontSize="15" FontWeight="Bold" Foreground="Black" Background="Gray" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Grid.Column="3" Grid.Row="6"/>
+        <Button Tag="1" Content="ЭНИ из других депо" FontSize="15" FontWeight="Bold" Foreground="Black" Background="Gray" Style="{DynamicResource SeachButtonStyle}" Click="Button_Click" Grid.Column="3" Grid.Row="4"/>
+        <ListBox x:Name="ESMList" Margin="2,1,3,0" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1" Grid.RowSpan="7" Background="White" />
 
     </Grid>
 </Page>

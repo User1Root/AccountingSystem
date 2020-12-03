@@ -22,15 +22,16 @@ namespace AccountingSystemUI
                 DockPanel dp = new DockPanel();
                 Label label = new Label()
                 {
-                    FontSize = 20,
+                    FontSize = 17,
                     Content = "ЭНИ №" + esm.EsmId + "   ",
-                    Background = new SolidColorBrush(Colors.Transparent),
-                    BorderBrush = new SolidColorBrush(Colors.Transparent),
+                    Background = new SolidColorBrush(Colors.White),
+                    BorderBrush = new SolidColorBrush(Colors.White),
                     Margin = new Thickness(10, 0, 0, 0)
                 };
                 dp.Children.Add(label);
 
                 var btn = new Button();
+                
                 btn.Style = (Style)Application.Current.Resources["ButtonForDockPanelStyle"] ?? throw new ArgumentException();
                 dp.Children.Add(btn);
 
@@ -43,7 +44,7 @@ namespace AccountingSystemUI
                     Child = dp,
                     BorderThickness = new Thickness(2),
                     BorderBrush = new SolidColorBrush(Colors.Black),
-                    Background = new SolidColorBrush(Colors.SandyBrown)
+                    Background = new SolidColorBrush(Colors.White)
                 };
 
                 ESMList.Items.Add(brd);

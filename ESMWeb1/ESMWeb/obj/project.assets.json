@@ -9311,23 +9311,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\1\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\kolya\\.nuget\\packages\\": {},
+    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
+      "projectUniqueName": "C:\\Users\\kolya\\Desktop\\AccountingSystem-master\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
       "projectName": "ESMWeb",
-      "projectPath": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
-      "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\1\\source\\repos\\AccountingSystem\\ESMWeb1\\ESMWeb\\obj\\",
+      "projectPath": "C:\\Users\\kolya\\Desktop\\AccountingSystem-master\\ESMWeb1\\ESMWeb\\ESMWeb.csproj",
+      "packagesPath": "C:\\Users\\kolya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kolya\\Desktop\\AccountingSystem-master\\ESMWeb1\\ESMWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kolya\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9339,7 +9339,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -9351,7 +9350,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "EntityFramework": {
             "target": "Package",
@@ -9414,7 +9412,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

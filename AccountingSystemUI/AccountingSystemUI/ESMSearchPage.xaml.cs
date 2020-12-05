@@ -13,9 +13,12 @@ namespace AccountingSystemUI
             InitializeComponent();
         }
 
-        public ESMSearchPage(long esmId)
+        private Page _page;
+
+        public ESMSearchPage(long esmId, Page page)
         {
             InitializeComponent();
+            _page = page;
             searchBnt.Visibility = Visibility.Hidden;
             inputBx.IsReadOnly = true;
             inputBx.Text = esmId.ToString();
@@ -64,9 +67,7 @@ namespace AccountingSystemUI
 
         private void Back(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.GoBack();
-            var frame = (Application.Current.MainWindow as MainWindow).MainFrame;
-            frame.GoBack();
+            this.NavigationService.Navigate(_page);         
         }
 
         private void PrintEsm(ESM esm)

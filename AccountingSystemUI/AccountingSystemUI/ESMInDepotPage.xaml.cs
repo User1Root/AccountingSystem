@@ -104,6 +104,6 @@ namespace AccountingSystemUI
             CreateDockPanelsForESMList(esms.ToArray());
         }
 
-        private void GetEsmInformation(long esmId) => this.NavigationService.Navigate(new ESMSearchPage(esmId));
+        private void GetEsmInformation(long esmId) => this.NavigationService.Navigate(new ESMSearchPage(esmId, this));
     }
 }
